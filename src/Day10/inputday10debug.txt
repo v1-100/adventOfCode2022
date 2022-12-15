@@ -1,0 +1,11 @@
+noop
+noop
+addx 1
+noop
+addx -22
+noop
+noop
+noop
+addx 3
+addx 4
+noop
