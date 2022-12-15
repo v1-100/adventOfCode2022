@@ -36,8 +36,24 @@ public class Day10 {
             sum = sum + l * program.historyOfXByCycle.get(l-1);
         }
 
-        System.out.println(program.history);      
-        System.out.println(program.historyOfXByCycle);   
+        //System.out.println(program.history);      
+        System.out.println(program.historyOfXByCycle);
+
+        String screen = "";
+        Integer lineBreak = 0;
+        for (int cycle = 0; cycle < 240; cycle++) {
+            Integer sprite = program.historyOfXByCycle.get(cycle);
+            
+            if((sprite-1) == (cycle-lineBreak) || (cycle-lineBreak) == sprite || (cycle-lineBreak) == (sprite+1)){
+                screen += "#";
+            }
+            else screen += ".";
+            if((cycle+1)%40 == 0){
+                screen += "\n";
+                lineBreak += 40;
+            }
+        }
+        System.out.println(screen);
         System.out.println("End "+ sum);
     }
     
