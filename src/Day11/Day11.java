@@ -7,13 +7,16 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class Day11 {
     File f;
     List<Monkey> monkeyList;
     Monkey currentMonkey;
+    Integer modulo;
 
     public Day11() {
         this.f = new File("src/Day11/inputday11.txt");
@@ -24,8 +27,9 @@ public class Day11 {
     public void calculate() throws IOException {
         System.out.println("Hello calculate day 11!");
         initiate();
+        modulo = monkeyList.stream().map(m -> m.testDivisible).reduce(1, (a, b) -> a * b); // dénominateur commun
         System.out.println(monkeyList);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10000; i++) {
             doARound(i);
         }
         
@@ -41,7 +45,7 @@ public class Day11 {
             times.add(monkey.inspectItem);
         }
         Collections.sort(times);
-        System.out.println(times.get(times.size()-1)*times.get(times.size()-2));
+        System.out.println(Long.valueOf(times.get(times.size()-1))*Long.valueOf(times.get(times.size()-2)));
     }
 
     private void doARound(Integer roundNumber) {
@@ -53,17 +57,18 @@ public class Day11 {
             do {
                 Item item = currentMonkey.items.poll();
                 currentMonkey.inspectItem++;
-                Integer newWorrylevel = 0;
+                //On change en Integer en Long le temp de réduire le worryLevel
+                Long newWorrylevel = 0L;
                 switch (currentMonkey.operation) {
                     case "*":
-                        newWorrylevel = getOperandValue(currentMonkey.operand1, item) * getOperandValue(currentMonkey.operand2, item);
+                        newWorrylevel = Long.valueOf(getOperandValue(currentMonkey.operand1, item)) * Long.valueOf(getOperandValue(currentMonkey.operand2, item));
                         break;
                     case "+":
-                        newWorrylevel = getOperandValue(currentMonkey.operand1, item) + getOperandValue(currentMonkey.operand2, item);
+                        newWorrylevel = Long.valueOf(getOperandValue(currentMonkey.operand1, item)) + Long.valueOf(getOperandValue(currentMonkey.operand2, item));
                         break;
                 }
-                newWorrylevel = newWorrylevel / 3;
-                item.worryLevel = newWorrylevel;
+                newWorrylevel = newWorrylevel % modulo ;// 3;
+                item.worryLevel = newWorrylevel.intValue();
                 if (newWorrylevel % currentMonkey.testDivisible == 0) {
                     getOrCreateMonkey((Integer) currentMonkey.throwTo.get(0)).items.add(item);
                 } else {
