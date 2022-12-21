@@ -6,10 +6,12 @@ import java.util.List;
 
 public class ExplorationResult {
     Boolean foundE;
+    Boolean tooLong;
     List<Coordinate> path;
 
     public ExplorationResult() {
         this.foundE = false;
+        this.tooLong = false;
         this.path = new ArrayList<>();
     }
 

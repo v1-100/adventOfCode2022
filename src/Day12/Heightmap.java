@@ -13,10 +13,12 @@ public class Heightmap implements Cloneable {
     Coordinate startingPosition;
     Coordinate locationBestSignal;
     HashMap<Coordinate, Integer> shortestDistanceFromStartOfVisitedPosition;
+    List<Coordinate> deadEnd;
 
 
     public Heightmap() {
         this.map = new ArrayList<>();
+        this.deadEnd = new ArrayList<>();
         this.shortestDistanceFromStartOfVisitedPosition = new HashMap<>();
     }
 
@@ -52,6 +54,7 @@ public class Heightmap implements Cloneable {
         if (path.contains(locationBestSignal)) throw new RuntimeException("Ne doit pas arriver");
 
         Coordinate currentPosition = path.get(path.size() - 1);
+        if(path.size() == 1) shortestDistanceFromStartOfVisitedPosition.put(path.get(0), 0);
 
         ExplorationResult explorationResult = new ExplorationResult();
         explorationResult.path = path;
@@ -61,10 +64,9 @@ public class Heightmap implements Cloneable {
         possibleMoves = possibleMoves.stream().filter(m -> {
             Integer destinationHeight = getValueOfPosition(m);
             Integer currentHeight = getValueOfPosition(currentPosition);
-            return destinationHeight <= currentHeight + 1 && !path.contains(m);
+            return destinationHeight <= currentHeight + 1 && !path.contains(m) && !deadEnd.contains(m);
         }).collect(Collectors.toList());
-
-        //Collections.sort(possibleMoves);
+        
 
         List<ExplorationResult> resultsOfExploration = new ArrayList<>();
         if (!possibleMoves.isEmpty()) {
@@ -85,6 +87,7 @@ public class Heightmap implements Cloneable {
                 } else if (isThereAShortestPathToThisPosition(move, pathClone.size() - 1)) {
                     ExplorationResult tooLongExpl = new ExplorationResult();
                     explorationResult.path = pathClone;
+                    explorationResult.tooLong = true;
 //                    System.out.println(prefix + "too long " + pathClone.get(pathClone.size() - 1) + " : " + (pathClone.size() - 1));
                     resultsOfExploration.add(tooLongExpl);
                 } else {
@@ -107,7 +110,6 @@ public class Heightmap implements Cloneable {
             }
             explorationResult = temp != null ? temp : explorationResult;
         }
-
         return explorationResult;
     }
 
@@ -130,7 +132,7 @@ public class Heightmap implements Cloneable {
         return map.get(coordinate.y).get(coordinate.x);
     }
 
-    private List<Coordinate> getPossibleMoveFromPosition(Coordinate currentPosition) {
+    public List<Coordinate> getPossibleMoveFromPosition(Coordinate currentPosition) {
         Integer x = currentPosition.x;
         Integer y = currentPosition.y;
         int maxX = map.get(0).size() - 1;
@@ -144,6 +146,24 @@ public class Heightmap implements Cloneable {
         return possibleMoves.stream().filter(coordinate -> coordinate.y >= 0 && coordinate.x >= 0
                 && coordinate.y <= maxY && coordinate.x <= maxX).collect(Collectors.toList());
     }
+    
+    public List<Coordinate> getPossibleMoveRisingFilteredFromPosition(Coordinate currentPosition) {
+        List<Coordinate> possibleMoves = getPossibleMoveFromPosition(currentPosition);
+        return possibleMoves.stream().filter(m -> {
+            Integer destinationHeight = getValueOfPosition(m);
+            Integer currentHeight = getValueOfPosition(currentPosition);
+            return destinationHeight <= currentHeight + 1;
+        }).collect(Collectors.toList());
+    }
+    
+    public List<Coordinate> getPossibleMoveFallingFilteredFromPosition(Coordinate currentPosition) {
+        List<Coordinate> possibleMoves = getPossibleMoveFromPosition(currentPosition);
+        return possibleMoves.stream().filter(m -> {
+            Integer destinationHeight = getValueOfPosition(m);
+            Integer currentHeight = getValueOfPosition(currentPosition);
+            return destinationHeight <= currentHeight - 1;
+        }).collect(Collectors.toList());
+    }    
 
     public void printMap(ExplorationResult explorationResult) {
         int maxX = map.get(0).size();
@@ -161,6 +181,23 @@ public class Heightmap implements Cloneable {
             System.out.println(line);
             line = "";
         }
+    }
+    
+    public void printDeadEnd(){
+        int maxX = map.get(0).size();
+        int maxY = map.size();
+        String line = "";
+        for (int y = 0; y < maxY; y++) {
+            for (int x = 0; x < maxX; x++) {
+                if (deadEnd.contains(new Coordinate(x, y))) {
+                    line = line + "| X ";
+                } else {
+                    line = line + "| . ";
+                }
+            }
+            System.out.println(line);
+            line = "";
+        }        
     }
 
     public List<Coordinate> getPositionsOfValue(Integer i) {

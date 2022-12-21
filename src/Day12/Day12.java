@@ -13,7 +13,7 @@ public class Day12 {
     Heightmap heightmap;
 
     public Day12() {
-        this.f = new File("src/Day12/inputday12sample.txt");
+        this.f = new File("src/Day12/inputday12.txt");
         this.heightmap = new Heightmap();
     }
 
@@ -23,27 +23,34 @@ public class Day12 {
         initiate();
         ArrayList<Coordinate> path = new ArrayList<>();
         path.add(heightmap.startingPosition);
-        String prefix = "";
-        ExplorationResult explorationResult = heightmap.getPathToLocationBestSignal(path, prefix);
+
         System.out.println("---------- RESULT --------------");
+        long t1 = System.currentTimeMillis();
+        ExplorationResult explorationResult = heightmap.getPathToLocationBestSignal(path, "");
         System.out.println(explorationResult.path.size());
-        heightmap.printMap(explorationResult);
+        //heightmap.printMap(explorationResult);
         System.out.println("--------------------------------");
         System.out.println("Part1 result : "+heightmap.shortestDistanceFromStartOfVisitedPosition.get(heightmap.locationBestSignal));
+        long t2 = System.currentTimeMillis();
+		System.out.println ("TEMPS=" + (t2-t1));
         System.out.println("--------------------------------");
         
-//        List<Coordinate> lowPositions = heightmap.getPositionsOfValue(1);
-//        lowPositions.retainAll(heightmap.shortestDistanceFromStartOfVisitedPosition.entrySet());
-//        List<ExplorationResult> exploOfLowlevel = new ArrayList<>();
-//        for (Coordinate position : lowPositions) {
-//            heightmap.shortestDistanceFromStartOfVisitedPosition = new HashMap<>();
-//            ArrayList<Coordinate> testPath = new ArrayList<>();
-//            testPath.add(position);
-//            exploOfLowlevel.add(heightmap.getPathToLocationBestSignal(testPath, ""));
-//        }
-//        System.out.println(exploOfLowlevel.stream().mapToInt(ex -> ex.path.size()).min().getAsInt() - 1);
-        
-        
+        System.out.println("--------------------------------");
+        t1 = System.currentTimeMillis();
+        System.out.println("Part1 BFS algo result : "+ BFS.bfs(heightmap, heightmap.startingPosition, heightmap.locationBestSignal).size());
+        t2 = System.currentTimeMillis();
+		System.out.println ("TEMPS=" + (t2-t1));
+        System.out.println("--------------------------------");        
+
+        System.out.println("Part 2");    
+        List<Coordinate> coordinates = heightmap.getPositionsOfValue(1);
+        Integer min = Integer.MAX_VALUE;
+        for(Coordinate coor : coordinates){
+            List<Coordinate> newPath = BFS.bfs(heightmap, coor, heightmap.locationBestSignal);
+            Integer size = newPath != null ? newPath.size() : Integer.MAX_VALUE;
+            min = min > size ? size -1 : min;
+        }
+        System.out.println("Part 2 result : "+min);
         System.out.println("End ");
     }
 
