@@ -10,7 +10,7 @@ public class Day4 {
     Integer pairs;
 
     public Day4() {
-        this.f = new File("src/inputday4.txt");
+        this.f = new File("src/main/java/inputday4.txt");
         this.pairs = 0;
     }
 

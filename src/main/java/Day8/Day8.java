@@ -13,7 +13,7 @@ public class Day8 {
     ArrayList<ArrayList<Integer>> visibleForest;
 
     public Day8() {
-        this.f = new File("src/Day8/inputday8.txt");
+        this.f = new File("src/main/java/Day8/inputday8.txt");
         forest = new ArrayList<>();
         visibleForest = new ArrayList<>();
     }

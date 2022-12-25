@@ -19,7 +19,7 @@ public class Day11 {
     Integer modulo;
 
     public Day11() {
-        this.f = new File("src/Day11/inputday11.txt");
+        this.f = new File("src/main/java/Day11/inputday11.txt");
         this.monkeyList = new ArrayList<>();
     }
 
@@ -27,7 +27,7 @@ public class Day11 {
     public void calculate() throws IOException {
         System.out.println("Hello calculate day 11!");
         initiate();
-        modulo = monkeyList.stream().map(m -> m.testDivisible).reduce(1, (a, b) -> a * b); // dénominateur commun
+        modulo = monkeyList.stream().map(m -> m.testDivisible).reduce(1, (a, b) -> a * b); // dï¿½nominateur commun
         System.out.println(monkeyList);
         for (int i = 0; i < 10000; i++) {
             doARound(i);
@@ -57,7 +57,7 @@ public class Day11 {
             do {
                 Item item = currentMonkey.items.poll();
                 currentMonkey.inspectItem++;
-                //On change en Integer en Long le temp de réduire le worryLevel
+                //On change en Integer en Long le temp de rï¿½duire le worryLevel
                 Long newWorrylevel = 0L;
                 switch (currentMonkey.operation) {
                     case "*":

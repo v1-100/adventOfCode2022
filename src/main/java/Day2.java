@@ -8,7 +8,7 @@ public class Day2 {
     Integer totalScore;
 
     public Day2() {
-        this.f = new File("src/inputday2.txt");
+        this.f = new File("src/main/java/inputday2.txt");
         totalScore = 0;
     }
 
@@ -248,7 +248,7 @@ public class Day2 {
             default:
                 System.out.println("No match");
         }
-        System.out.println("On ne devrait pas être la");
+        System.out.println("On ne devrait pas ï¿½tre la");
         return RoundResult.Win;
     }
 }

@@ -11,7 +11,7 @@ public class Day5 {
     String top;
 
     public Day5() {
-        this.f = new File("src/inputday5.txt");
+        this.f = new File("src/main/java/inputday5.txt");
         for (int i = 0; i < 10; i++) {
             cargo.add(new ArrayList());
         }

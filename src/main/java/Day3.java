@@ -13,7 +13,7 @@ public class Day3 {
     List<String> group = new ArrayList<>();
 
     public Day3() {
-        this.f = new File("src/inputday3.txt");
+        this.f = new File("src/main/java/inputday3.txt");
         this.prioSum = 0;
     }
 

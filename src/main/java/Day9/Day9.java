@@ -14,7 +14,7 @@ public class Day9 {
 
     public Day9() {
         Integer ropeSize = 9;
-        this.f = new File("src/Day9/inputday9.txt");
+        this.f = new File("src/main/java/Day9/inputday9.txt");
         this.ropeSize = ropeSize;
         this.map = new Map(1, ropeSize);
     }

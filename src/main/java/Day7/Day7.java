@@ -19,7 +19,7 @@ public class Day7 {
     List<Integer> part2 ;
 
     public Day7() {
-        this.f = new File("src/Day7/inputday7.txt");
+        this.f = new File("src/main/java/Day7/inputday7.txt");
         this.root = new SysDir("/", Optional.ofNullable(null));
         this.part1 = 0;
         this.part2 = new ArrayList<Integer>();

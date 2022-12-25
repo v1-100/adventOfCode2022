@@ -14,7 +14,7 @@ public class Day10 {
     ArrayList<String> instructionsList;
 
     public Day10() throws IOException {
-        this.f = new File("src/Day10/inputday10.txt");
+        this.f = new File("src/main/java/Day10/inputday10.txt");
         this.instructionsList = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
         String line = bufferedReader.readLine();

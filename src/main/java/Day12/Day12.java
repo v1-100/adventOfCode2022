@@ -13,7 +13,7 @@ public class Day12 {
     Heightmap heightmap;
 
     public Day12() {
-        this.f = new File("src/Day12/inputday12.txt");
+        this.f = new File("src/main/java/Day12/inputday12.txt");
         this.heightmap = new Heightmap();
     }
 

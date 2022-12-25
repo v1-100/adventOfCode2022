@@ -7,7 +7,7 @@ public class Day6 {
     File f;
 
     public Day6() {
-        this.f = new File("src/inputday6.txt");
+        this.f = new File("src/main/java/inputday6.txt");
     }
 
 
