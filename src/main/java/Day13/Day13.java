@@ -40,6 +40,23 @@ public class Day13 {
         System.out.println("pairList " +pairList);
         System.out.println(summary);
         System.out.println("sumOfIndiceInTheRightOrder : " + sumOfIndiceInTheRightOrder);
+
+        Pair dividerPackets = new Pair("[[2]]", "[[6]]");
+        pairList.add(dividerPackets);
+        List allList = new ArrayList<>();
+        for (Pair pair : pairList ) {
+            allList.add(pair.rightList);
+            allList.add(pair.leftList);
+        }
+
+        allList.sort((a,b)-> {
+            Boolean bool = Pair.isPairsInTheRightOrder((List) a, (List) b);
+            return bool ? -1 : 1;
+        });
+        System.out.println(allList);
+        Integer divider1 = allList.indexOf(dividerPackets.leftList) +1;
+        Integer divider2 = allList.indexOf(dividerPackets.rightList) +1;
+        System.out.println("Part 2 : "+divider1+" * "+divider2+" = "+(divider1*divider2));
         System.out.println("End ");
 
     }
