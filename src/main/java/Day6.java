@@ -5,7 +5,10 @@ import java.io.IOException;
 
 public class Day6 {
     File f;
-
+    public static void main(String[] args) throws IOException {
+        Day6 day = new Day6();
+        day.calculate();
+    }
     public Day6() {
         this.f = new File("src/main/java/inputday6.txt");
     }

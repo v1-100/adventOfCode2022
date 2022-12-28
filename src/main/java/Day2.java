@@ -6,7 +6,10 @@ import java.io.IOException;
 public class Day2 {
     File f;
     Integer totalScore;
-
+    public static void main(String[] args) throws IOException {
+        Day2 day = new Day2();
+        day.calculate();
+    }
     public Day2() {
         this.f = new File("src/main/java/inputday2.txt");
         totalScore = 0;

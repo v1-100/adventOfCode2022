@@ -11,7 +11,10 @@ public class Day9 {
     File f;
     Map map;
     Integer ropeSize;
-
+    public static void main(String[] args) throws IOException, CloneNotSupportedException {
+        Day9 day = new Day9();
+        day.calculate();
+    }
     public Day9() {
         Integer ropeSize = 9;
         this.f = new File("src/main/java/Day9/inputday9.txt");

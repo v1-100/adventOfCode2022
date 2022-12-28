@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,6 +7,10 @@ import java.util.List;
 public class Day1 {
     List<String> toto;
 
+    public static void main(String[] args) {
+        Day1 day = new Day1();
+        day.calculate();
+    }
     public void calculate() {
         System.out.println("Hello calculate day 1!");
 

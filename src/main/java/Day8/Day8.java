@@ -11,7 +11,10 @@ public class Day8 {
     File f;
     ArrayList<ArrayList<Integer>> forest;
     ArrayList<ArrayList<Integer>> visibleForest;
-
+    public static void main(String[] args) throws IOException {
+        Day8 day = new Day8();
+        day.calculate();
+    }
     public Day8() {
         this.f = new File("src/main/java/Day8/inputday8.txt");
         forest = new ArrayList<>();

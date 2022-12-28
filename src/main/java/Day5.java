@@ -9,7 +9,10 @@ public class Day5 {
     File f;
     ArrayList<ArrayList<String>> cargo = new ArrayList<>();
     String top;
-
+    public static void main(String[] args) throws IOException {
+        Day5 day = new Day5();
+        day.calculate();
+    }
     public Day5() {
         this.f = new File("src/main/java/inputday5.txt");
         for (int i = 0; i < 10; i++) {

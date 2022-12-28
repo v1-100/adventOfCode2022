@@ -5,13 +5,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Day12 {
     File f;
     Heightmap heightmap;
 
+    public static void main(String[] args) throws IOException {
+        Day12 day = new Day12();
+        day.calculate();
+    }
     public Day12() {
         this.f = new File("src/main/java/Day12/inputday12.txt");
         this.heightmap = new Heightmap();

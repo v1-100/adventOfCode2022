@@ -12,7 +12,10 @@ public class Day10 {
 
     File f;
     ArrayList<String> instructionsList;
-
+    public static void main(String[] args) throws IOException {
+        Day10 day = new Day10();
+        day.calculate();
+    }
     public Day10() throws IOException {
         this.f = new File("src/main/java/Day10/inputday10.txt");
         this.instructionsList = new ArrayList<>();

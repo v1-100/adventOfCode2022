@@ -11,7 +11,10 @@ public class Day3 {
     File f;
     Integer prioSum;
     List<String> group = new ArrayList<>();
-
+    public static void main(String[] args) throws IOException {
+        Day3 day = new Day3();
+        day.calculate();
+    }
     public Day3() {
         this.f = new File("src/main/java/inputday3.txt");
         this.prioSum = 0;

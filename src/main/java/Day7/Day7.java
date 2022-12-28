@@ -17,7 +17,10 @@ public class Day7 {
 
     Integer part1;
     List<Integer> part2 ;
-
+    public static void main(String[] args) throws IOException {
+        Day7 day = new Day7();
+        day.calculate();
+    }
     public Day7() {
         this.f = new File("src/main/java/Day7/inputday7.txt");
         this.root = new SysDir("/", Optional.ofNullable(null));

@@ -4,20 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Queue;
-import java.util.stream.Collectors;
 
 public class Day11 {
     File f;
     List<Monkey> monkeyList;
     Monkey currentMonkey;
     Integer modulo;
-
+    public static void main(String[] args) throws IOException {
+        Day11 day = new Day11();
+        day.calculate();
+    }
     public Day11() {
         this.f = new File("src/main/java/Day11/inputday11.txt");
         this.monkeyList = new ArrayList<>();

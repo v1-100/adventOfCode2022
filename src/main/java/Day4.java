@@ -8,7 +8,10 @@ import java.util.List;
 public class Day4 {
     File f;
     Integer pairs;
-
+    public static void main(String[] args) throws IOException {
+        Day4 day = new Day4();
+        day.calculate();
+    }
     public Day4() {
         this.f = new File("src/main/java/inputday4.txt");
         this.pairs = 0;
