@@ -26,28 +26,31 @@ public class Day14 {
         Set<Coordinate> sands = new HashSet<>();
 
         printCave(paths, sands);
+        
+        Integer part = 2;
 
         while (true) {
-            Coordinate newSandUnit = OneUnitOfSandFalls(paths, sands);
+            Coordinate newSandUnit = OneUnitOfSandFalls(paths, sands, part);
             if (newSandUnit != null) {
                 sands.add(newSandUnit);
             } else {
                 break;
             }
             System.out.println("\n");
-            printCave(paths, sands);
+            //printCave(paths, sands);
         }
-        System.out.println("Units of sands : " + sands.size());
+        printCave(paths, sands);
+        System.out.println("Units of sands : " + (part == 2 ? sands.size()+1 : sands.size()));
         System.out.println("End ");
 
     }
 
-    private static Coordinate OneUnitOfSandFalls(Set<Coordinate> paths, Set<Coordinate> sands) {
+    private static Coordinate OneUnitOfSandFalls(Set<Coordinate> paths, Set<Coordinate> sands, Integer part) {
         Set<Coordinate> possibleDestination = getPossiblesDestination(start, paths, sands);
         Coordinate nextDest = null;
         while (!possibleDestination.isEmpty()){
             nextDest = possibleDestination.iterator().next();
-            if(isSandFallsIntoAbyss(nextDest, paths)) return null;
+            if(part == 1 && isSandFallsIntoAbyss(nextDest, paths)) return null;
             possibleDestination = getPossiblesDestination(nextDest, paths, sands);
         }
         return nextDest;
@@ -69,8 +72,11 @@ public class Day14 {
         possibleDestination.add(new Coordinate(origin.x-1, origin.y+1));
         possibleDestination.add(new Coordinate(origin.x+1, origin.y+1));
         Set<Coordinate> toRemove = new HashSet<>();
+        
+        int floorY = paths.stream().mapToInt(c -> c.y).max().getAsInt() + 2;
+        
         for (Coordinate dest : possibleDestination) {
-            if(paths.contains(dest) || sands.contains(dest)){
+            if(paths.contains(dest) || sands.contains(dest) || dest.y == floorY){
                 toRemove.add(dest);
             }
         }
@@ -79,15 +85,19 @@ public class Day14 {
     }
 
     private static void printCave(Set<Coordinate> paths, Set<Coordinate> sands) {
-        OptionalInt minX = paths.stream().mapToInt(c -> c.x).min();
-        OptionalInt maxX = paths.stream().mapToInt(c -> c.x).max();
-        OptionalInt minY = paths.stream().mapToInt(c -> c.y).min();
-        OptionalInt maxY = paths.stream().mapToInt(c -> c.y).max();
+        int minX = Math.min(paths.stream().mapToInt(c -> c.x).min().orElse(500),
+                sands.stream().mapToInt(c -> c.x).min().orElse(500));
+        int maxX = Math.max(paths.stream().mapToInt(c -> c.x).max().orElse(500),
+                sands.stream().mapToInt(c -> c.x).max().orElse(500));
+        int minY = Math.min(paths.stream().mapToInt(c -> c.y).min().orElse(0),
+                                    sands.stream().mapToInt(c -> c.y).min().orElse(0));
+        int maxY = Math.max(paths.stream().mapToInt(c -> c.y).max().orElse(0),
+                sands.stream().mapToInt(c -> c.y).max().orElse(0));
         String line = "";
 
-        for (int y = 0; y <= maxY.getAsInt(); y++) {
+        for (int y = 0; y <= maxY +2; y++) {
             line += y + " ";
-            for (int x = minX.getAsInt(); x <= maxX.getAsInt(); x++) {
+            for (int x = minX; x <= maxX; x++) {
 
                 if (start.equals(new Coordinate(x, y))) {
                     line += "+ ";
